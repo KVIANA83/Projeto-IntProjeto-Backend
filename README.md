@@ -8,6 +8,7 @@
 - MARIA VALÉRIA
 - ELLEN JACKELINE
 - JAQUELINE BRITO
+- CAMILY GABRIELY 
 
 . Pernambuco, Recife 🌎
 
