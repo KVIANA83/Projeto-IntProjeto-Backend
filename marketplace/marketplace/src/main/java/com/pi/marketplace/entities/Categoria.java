@@ -16,8 +16,13 @@ public class Categoria{
 		Scanner sc = new Scanner(System.in);
 		
 		//Atributos da Entidade Categoria do MySQL
+  @Column(name = 'id_categoria')
 		private int idCategoria;
+
+  @Column(name = 'nome')
 		public String nomeCategoria;
+
+  @Column(name = 'descricao')
 		public String descricaoCategoria;
 	
 	
