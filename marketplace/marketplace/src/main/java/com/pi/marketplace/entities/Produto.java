@@ -18,8 +18,14 @@ public class Produto{
 		//Atributos da Entidade Produto do MySQL
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+  @Column(name = 'id_produto')
 		private int idProduto;
+
+  @Column(name = 'nome')
 		public String nomeProduto;
+
+  @Column(name = 'descricao')
 		public String descricaoProduto;
 	
 	
