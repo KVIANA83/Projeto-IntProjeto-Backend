@@ -1,14 +1,14 @@
 
-## PROJETO INTEGRADOR - TEM NO BAIRRO💻
-## Escola Tecnica Estadual Adovogado José David Gill Rodrigues
-### DESENVOLVEDORES 👋
+## PROJETO INTEGRADOR - MARKETPLACE (TEM NO BAIRRO)💻
+## Escola Tecnica Estadual Advogado José David Gil Rodrigues
+### Equipe do PI 👋
 
-- KARINE VIANA
-- WESLEY LUCAS
-- MARIA VALÉRIA
-- ELLEN JACKELINE
-- JAQUELINE BRITO
-- CAMILY GABRIELY 
+- KARINE VIANA;
+- WESLEY LUCAS;
+- MARIA VALÉRIA;
+- ELLEN JACKELINE;
+- JAQUELINE BRITO;
+- CAMILY GABRIELY.
 
 . Pernambuco, Recife 🌎
 
