@@ -1,12 +1,11 @@
 package com.pi.marketplace.repository;
 
-import java.util.List;
-
+import com.pi.marketplace.model.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.pi.marketplace.entities.Produto;
+import java.util.List;
 
 public interface ProdutoRepository extends JpaRepository<Produto, Integer> {
     

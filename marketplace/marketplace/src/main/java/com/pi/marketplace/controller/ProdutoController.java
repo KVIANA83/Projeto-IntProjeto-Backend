@@ -1,9 +1,9 @@
 package com.pi.marketplace.controller;
 
+import com.pi.marketplace.model.Produto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.pi.marketplace.entities.Produto;
 import com.pi.marketplace.repository.ProdutoRepository;
 
 import java.util.List;
@@ -25,5 +25,5 @@ public class ProdutoController {
         return produtoRepository.save(produto);
     }
 
-    // Adicione outros métodos para atualizar, excluir e recuperar produtos por ID
+     Adicione outros métodos para atualizar, excluir e recuperar produtos por ID
 }

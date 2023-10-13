@@ -1,9 +1,9 @@
 package com.pi.marketplace.controller;
 
+import com.pi.marketplace.model.Categoria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.pi.marketplace.entities.Categoria;
 import com.pi.marketplace.repository.CategoriaRepository;
 
 import java.util.List;
@@ -17,6 +17,7 @@ public class CategoriaController {
 
     @GetMapping
     public List<Categoria> listarCategorias() {
+
         return categoriaRepository.findAll();
     }
 
@@ -25,5 +26,5 @@ public class CategoriaController {
         return categoriaRepository.save(categoria);
     }
 
-    // Adicione outros métodos para atualizar, excluir e recuperar categorias por ID
+     Adicione outros métodos para atualizar, excluir e recuperar categorias por ID
 }

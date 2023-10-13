@@ -1,9 +1,9 @@
 package com.pi.marketplace.controller;
 
+import com.pi.marketplace.model.Empreendedor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.pi.marketplace.entities.Empreendedor;
 import com.pi.marketplace.repository.EmpreendedorRepository;
 
 import java.util.List;
@@ -25,5 +25,5 @@ public class EmpreendedorController {
         return empreendedorRepository.save(empreendedor);
     }
 
-    // Adicione outros métodos para atualizar, excluir e recuperar empreendedores por ID
+     Adicione outros métodos para atualizar, excluir e recuperar empreendedores por ID
 }
