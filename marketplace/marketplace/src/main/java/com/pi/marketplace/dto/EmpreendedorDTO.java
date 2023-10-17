@@ -1,5 +1,6 @@
 package com.pi.marketplace.dto;
 
+import com.pi.marketplace.model.Empreendedor;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -20,4 +21,5 @@ public class EmpreendedorDTO {
     private String razaoSocial;
     private String endereco;
     private String email;
+
 }

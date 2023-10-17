@@ -4,15 +4,13 @@ import com.pi.marketplace.model.Empreendedor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-public interface EmpreendedorRepository extends JpaRepository<Empreendedor, Long> {
-    
-    /**
-     * @param nome
-     * @return
-     */
-    @Query("SELECT e FROM Empreendedor e WHERE e.nome = :nome")
-    Empreendedor findByNome(@Param("nome") String nome);
+import java.util.Optional;
 
-//     Outras consultas personalizadas
+@Repository
+public interface EmpreendedorRepository extends JpaRepository<Empreendedor, Integer> {
+
+    Optional<Empreendedor> findByNome(@Param("nome") String nome);
+
 }

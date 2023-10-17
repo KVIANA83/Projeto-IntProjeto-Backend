@@ -18,12 +18,13 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public List<UsuarioDTO> listarTodos() {
-        List<Usuario> listaUsuarios = usuarioRepository.findAll();
+        var listaUsuarios = usuarioRepository.findAll();
 
-        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+        var usuarioDTOS = new ArrayList<UsuarioDTO>();
 
         for(Usuario usuario : listaUsuarios) {
-            UsuarioDTO usuarioDTO = UsuarioDTO.builder()
+
+            var usuarioDTO = UsuarioDTO.builder()
                     .telefone(usuario.getTelefone())
                     .nomeSocial(usuario.getNomeSocial())
                     .nomeCompleto(usuario.getNomeCompleto())
@@ -38,7 +39,8 @@ public class UsuarioService {
     }
 
     public Usuario pegarUsuarioPeloId(Integer id) throws ClassNotFoundException {
-        Optional<Usuario> usuario = usuarioRepository.findById(id);
+
+        var usuario = usuarioRepository.findById(id);
 
         if (usuario.isEmpty()) {
             throw new ClassNotFoundException("Usuário não encontrado com o ID: %s" + id);
@@ -49,7 +51,7 @@ public class UsuarioService {
 
     public void saveUsuario(CreateUsuarioDTO usuarioDTO) {
 
-        Usuario entity = Usuario.builder()
+        var usuario = Usuario.builder()
                 .dataNascimento(usuarioDTO.getDataNascimento())
                 .email(usuarioDTO.getEmail())
                 .senha(usuarioDTO.getSenha())
@@ -59,18 +61,13 @@ public class UsuarioService {
                 .telefone(usuarioDTO.getTelefone())
                 .build();
 
-        usuarioRepository.save(entity);
+        usuarioRepository.save(usuario);
     }
 
     public void atualizarUsuario(CreateUsuarioDTO usuarioAtualizar, Integer id) throws ClassNotFoundException {
 
-        Optional<Usuario> entity = usuarioRepository.findById(id);
+        var usuario = pegarUsuarioPeloId(id);
 
-        if (entity.isEmpty()) {
-            throw new ClassNotFoundException("Usuário não encontrado com o ID: %s" + id);
-        }
-
-        Usuario usuario = entity.get();
         usuario.setNomeCompleto(usuarioAtualizar.getNomeCompleto());
         usuario.setNomeSocial(usuarioAtualizar.getNomeSocial());
         usuario.setEndereco(usuarioAtualizar.getEndereco());
@@ -84,13 +81,9 @@ public class UsuarioService {
 
     public void deletarUsuario(Integer id) throws ClassNotFoundException {
 
-        Optional<Usuario> entity = usuarioRepository.findById(id);
+        var entity = pegarUsuarioPeloId(id);
 
-        if (entity.isEmpty()) {
-            throw new ClassNotFoundException("Usuário não encontrado com o ID: %s" + id);
-        }
-
-        usuarioRepository.delete(entity.get());
+        usuarioRepository.delete(entity);
     }
 
 }

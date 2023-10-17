@@ -1,29 +1,64 @@
 package com.pi.marketplace.controller;
 
+import com.pi.marketplace.dto.CreateEmpreendedorDTO;
+import com.pi.marketplace.dto.EmpreendedorDTO;
 import com.pi.marketplace.model.Empreendedor;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.pi.marketplace.service.EmpreendedorService;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.pi.marketplace.repository.EmpreendedorRepository;
 
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/empreendedores")
 public class EmpreendedorController {
 
-    @Autowired
-    private EmpreendedorRepository empreendedorRepository;
+    private EmpreendedorService empreendedorService;
 
-    @GetMapping
-    public List<Empreendedor> listarEmpreendedores() {
-        return empreendedorRepository.findAll();
+
+    @GetMapping("/listar")
+    public ResponseEntity<List<EmpreendedorDTO>> listarEmpreendedores() {
+
+        return ResponseEntity.ok(empreendedorService.listarTodos());
     }
 
-    @PostMapping
-    public Empreendedor criarEmpreendedor(@RequestBody Empreendedor empreendedor) {
-        return empreendedorRepository.save(empreendedor);
+    @GetMapping("/listar/empreendedor/{id}")
+    public ResponseEntity<List<EmpreendedorDTO>> listarEmpreendedores(@PathVariable("id") Integer id) {
+
+        return ResponseEntity.ok(empreendedorService.listarTodos());
     }
 
-     Adicione outros métodos para atualizar, excluir e recuperar empreendedores por ID
+    @PostMapping("/salvar")
+    public ResponseEntity<Void> salvarEmpreendedor(@Valid @RequestBody CreateEmpreendedorDTO createEmpreendedorDTO) {
+
+        empreendedorService.salvarEmpreendedor(createEmpreendedorDTO);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity<Empreendedor> buscarEmpreendedorPeloId(@PathVariable("id") Integer id) throws ClassNotFoundException {
+
+        return ResponseEntity.ok(empreendedorService.pegarEmpreendedorPeloId(id));
+    }
+
+    @PostMapping("/atualizar/{id}")
+    public ResponseEntity<Void> atualizarEmpreendedor(@PathVariable("id") Integer id,
+                                                      @Valid @RequestBody CreateEmpreendedorDTO createEmpreendedorDTO) throws ClassNotFoundException {
+
+        empreendedorService.atualizarEmpreendedor(createEmpreendedorDTO, id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<Void> deletarEmpreendedor(@PathVariable("id") Integer id) throws ClassNotFoundException {
+
+        empreendedorService.deletarEmpreendedor(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }

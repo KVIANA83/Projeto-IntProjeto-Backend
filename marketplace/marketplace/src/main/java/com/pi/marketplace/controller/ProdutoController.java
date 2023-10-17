@@ -1,29 +1,54 @@
 package com.pi.marketplace.controller;
 
-import com.pi.marketplace.model.Produto;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.pi.marketplace.dto.CreateProdutoDTO;
+import com.pi.marketplace.dto.ProdutoDTO;
+import com.pi.marketplace.service.ProdutoService;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.pi.marketplace.repository.ProdutoRepository;
-
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/produtos")
 public class ProdutoController {
 
-    @Autowired
-    private ProdutoRepository produtoRepository;
+    private ProdutoService produtoService;
 
-    @GetMapping
-    public List<Produto> listarProdutos() {
-        return produtoRepository.findAll();
+
+    @GetMapping("/listar")
+    public ResponseEntity<List<ProdutoDTO>> listarProdutos() {
+
+        return ResponseEntity.ok(produtoService.listarProdutos());
     }
 
-    @PostMapping
-    public Produto criarProduto(@RequestBody Produto produto) {
-        return produtoRepository.save(produto);
+    @PostMapping("/salvar")
+    public ResponseEntity<Void> criarProduto(@Valid @RequestBody CreateProdutoDTO createProdutoDTO) throws ClassNotFoundException {
+
+        produtoService.salvarProduto(createProdutoDTO);
+
+        return ResponseEntity.noContent().build();
     }
 
-     Adicione outros métodos para atualizar, excluir e recuperar produtos por ID
+    @GetMapping("/listar/{categoria}")
+    public ResponseEntity<List<ProdutoDTO>> listarProdutosPorCategoria(@PathVariable("categoria") String categoria) throws Exception {
+
+        return ResponseEntity.ok(produtoService.listarProdutosPorCategoria(categoria));
+    }
+
+    @GetMapping("/listar/{idEmp}")
+    public ResponseEntity<List<ProdutoDTO>> listarProdutosDoEmpreendedor(@PathVariable("idEmp") Integer idEmpreendedor) throws Exception {
+
+        return ResponseEntity.ok(produtoService.listarProdutosPorEmpreendedor(idEmpreendedor));
+    }
+
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<Void> deletarProduto(@PathVariable("id") Integer idProduto) throws ClassNotFoundException {
+
+        produtoService.deletarProduto(idProduto);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }

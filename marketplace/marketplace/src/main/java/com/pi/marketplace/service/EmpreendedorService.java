@@ -17,13 +17,16 @@ public class EmpreendedorService {
 
     private EmpreendedorRepository empreendedorRepository;
 
+
     public List<EmpreendedorDTO> listarTodos() {
-        List<Empreendedor> listaEmpreendores = empreendedorRepository.findAll();
 
-        List<EmpreendedorDTO> empreendedorDTOS = new ArrayList<>();
+        var listaEmpreendores = empreendedorRepository.findAll();
 
-        for(Empreendedor empreendedor : listaEmpreendedores) {
-            EmpreendedorDTO empreendedorDTO = EmpreendedorDTO.builder()
+        var empreendedorDTOS = new ArrayList<EmpreendedorDTO>();
+
+        for(Empreendedor empreendedor : listaEmpreendores) {
+
+            var empreendedorDTO = EmpreendedorDTO.builder()
                     .telefone(empreendedor.getTelefone())
                     .razaoSocial(empreendedor.getRazaoSocial())
                     .nomeCompleto(empreendedor.getNomeCompleto())
@@ -38,7 +41,8 @@ public class EmpreendedorService {
     }
 
     public Empreendedor pegarEmpreendedorPeloId(Integer id) throws ClassNotFoundException {
-        Optional<Empreendedor> empreendedor = empreendedorRepository.findById(id);
+
+        var empreendedor = empreendedorRepository.findById(id);
 
         if (empreendedor.isEmpty()) {
             throw new ClassNotFoundException("Empreendedor não encontrado com o ID: %s" + id);
@@ -47,9 +51,9 @@ public class EmpreendedorService {
         return empreendedor.get();
     }
 
-    public void saveEmpreendedor(CreateEmpreendedorDTO empreendedorDTO) {
+    public void salvarEmpreendedor(CreateEmpreendedorDTO empreendedorDTO) {
 
-        Empreendedor entity = Empreendedor.builder()
+        var empreendedor = Empreendedor.builder()
                 .dataNascimento(empreendedorDTO.getDataNascimento())
                 .email(empreendedorDTO.getEmail())
                 .senha(empreendedorDTO.getSenha())
@@ -59,18 +63,13 @@ public class EmpreendedorService {
                 .telefone(empreendedorDTO.getTelefone())
                 .build();
 
-        empreendedorRepository.save(entity);
+        empreendedorRepository.save(empreendedor);
     }
 
     public void atualizarEmpreendedor(CreateEmpreendedorDTO empreendedorAtualizar, Integer id) throws ClassNotFoundException {
 
-        Optional<Empreendedor> entity = empreendedorRepository.findById(id);
+        var empreendedor = pegarEmpreendedorPeloId(id);
 
-        if (entity.isEmpty()) {
-            throw new ClassNotFoundException("Empreendedor não encontrado com o ID: %s" + id);
-        }
-
-        Empreendedor empreendedor = entity.get();
         empreendedor.setNomeCompleto(empreendedorAtualizar.getNomeCompleto());
         empreendedor.setRazaoSocial(empreendedorAtualizar.getRazaoSocial());
         empreendedor.setEndereco(empreendedorAtualizar.getEndereco());

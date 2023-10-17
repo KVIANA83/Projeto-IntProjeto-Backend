@@ -1,30 +1,43 @@
 package com.pi.marketplace.controller;
 
-import com.pi.marketplace.model.Categoria;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.pi.marketplace.dto.CategoriaDTO;
+import com.pi.marketplace.dto.CreateCategoriaDTO;
+import com.pi.marketplace.service.CategoriaService;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.pi.marketplace.repository.CategoriaRepository;
 
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/categorias")
 public class CategoriaController {
 
-    @Autowired
-    private CategoriaRepository categoriaRepository;
+    private CategoriaService categoriaService;
 
-    @GetMapping
-    public List<Categoria> listarCategorias() {
 
-        return categoriaRepository.findAll();
+    @GetMapping("/listar")
+    public ResponseEntity<List<CategoriaDTO>> listarCategorias() {
+
+        return ResponseEntity.ok(categoriaService.listarTodasCategorias());
     }
 
-    @PostMapping
-    public Categoria criarCategoria(@RequestBody Categoria categoria) {
-        return categoriaRepository.save(categoria);
+    @PostMapping("/salvar")
+    public ResponseEntity<Void> criarCategoria(@Valid @RequestBody CreateCategoriaDTO categoriaDTO) {
+
+        categoriaService.salvarCategoria(categoriaDTO);
+
+        return ResponseEntity.noContent().build();
     }
 
-     Adicione outros métodos para atualizar, excluir e recuperar categorias por ID
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<Void> criarCategoria(@PathVariable("id") Integer idCategoria) throws ClassNotFoundException {
+
+        categoriaService.deletarCategoria(idCategoria);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }

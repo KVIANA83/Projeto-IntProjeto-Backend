@@ -22,7 +22,15 @@ package com.pi.marketplace.dto;
      private String nome; 
   
      @NotBlank(message = "Descrição do produto é um campo obrigatório!") 
-     private String desricao; 
-     
+     private String descricao;
+
+     @NotBlank(message = "url da Imagem é um campo obrigatório!")
+     private String urlImagem;
+
+     @NotNull(message = "id da Categoria é um campo obrigatório!")
+     private Integer idCategoria;
+
+     @NotNull(message = "id do Empreendedor é um campo obrigatório!")
+     private Integer idEmpreendedor;
      
  }

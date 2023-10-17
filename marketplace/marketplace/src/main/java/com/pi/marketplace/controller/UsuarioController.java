@@ -28,30 +28,38 @@ public class UsuarioController {
 
     @GetMapping("/listar")
     public ResponseEntity<List<UsuarioDTO>> listarUsuarios() {
+
         return ResponseEntity.ok(usuarioService.listarTodos());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/buscar/{id}")
     public ResponseEntity<Usuario> getUsuario(@PathVariable Integer id) throws ClassNotFoundException {
+
         return ResponseEntity.ok(usuarioService.pegarUsuarioPeloId(id));
     }
 
     @PostMapping("/criar")
     public ResponseEntity<Void> criarUsuario(@Valid @RequestBody CreateUsuarioDTO usuarioDTO) {
+
         usuarioService.saveUsuario(usuarioDTO);
+
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/atualizar/{id}")
     public ResponseEntity<Void> atualizarUsuario(@PathVariable Integer id,
             @Valid @RequestBody CreateUsuarioDTO usuarioAtualizar) throws ClassNotFoundException {
+
         usuarioService.atualizarUsuario(usuarioAtualizar, id);
+
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletar/{id}")
     public ResponseEntity<?> deletarUsuario(@PathVariable Integer id) throws ClassNotFoundException {
+
         usuarioService.deletarUsuario(id);
+
         return ResponseEntity.noContent().build();
     }
 }
