@@ -33,7 +33,7 @@ public class CategoriaController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<Void> criarCategoria(@PathVariable("id") Integer idCategoria) throws ClassNotFoundException {
+    public ResponseEntity<Void> criarCategoria(@PathVariable("id") Integer idCategoria) {
 
         categoriaService.deletarCategoria(idCategoria);
 

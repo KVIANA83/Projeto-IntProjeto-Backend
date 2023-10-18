@@ -25,12 +25,6 @@ public class EmpreendedorController {
         return ResponseEntity.ok(empreendedorService.listarTodos());
     }
 
-    @GetMapping("/listar/empreendedor/{id}")
-    public ResponseEntity<List<EmpreendedorDTO>> listarEmpreendedores(@PathVariable("id") Integer id) {
-
-        return ResponseEntity.ok(empreendedorService.listarTodos());
-    }
-
     @PostMapping("/salvar")
     public ResponseEntity<Void> salvarEmpreendedor(@Valid @RequestBody CreateEmpreendedorDTO createEmpreendedorDTO) {
 
@@ -40,14 +34,14 @@ public class EmpreendedorController {
     }
 
     @GetMapping("/buscar/{id}")
-    public ResponseEntity<Empreendedor> buscarEmpreendedorPeloId(@PathVariable("id") Integer id) throws ClassNotFoundException {
+    public ResponseEntity<Empreendedor> buscarEmpreendedorPeloId(@PathVariable("id") Integer id) {
 
         return ResponseEntity.ok(empreendedorService.pegarEmpreendedorPeloId(id));
     }
 
     @PostMapping("/atualizar/{id}")
     public ResponseEntity<Void> atualizarEmpreendedor(@PathVariable("id") Integer id,
-                                                      @Valid @RequestBody CreateEmpreendedorDTO createEmpreendedorDTO) throws ClassNotFoundException {
+                                                      @Valid @RequestBody CreateEmpreendedorDTO createEmpreendedorDTO) {
 
         empreendedorService.atualizarEmpreendedor(createEmpreendedorDTO, id);
 
@@ -55,7 +49,7 @@ public class EmpreendedorController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<Void> deletarEmpreendedor(@PathVariable("id") Integer id) throws ClassNotFoundException {
+    public ResponseEntity<Void> deletarEmpreendedor(@PathVariable("id") Integer id) {
 
         empreendedorService.deletarEmpreendedor(id);
 

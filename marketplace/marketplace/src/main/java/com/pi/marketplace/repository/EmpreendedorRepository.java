@@ -11,6 +11,8 @@ import java.util.Optional;
 @Repository
 public interface EmpreendedorRepository extends JpaRepository<Empreendedor, Integer> {
 
-    Optional<Empreendedor> findByNome(@Param("nome") String nome);
+    Optional<Empreendedor> findByNomeCompleto(@Param("nome") String nome);
+
+    Optional<Empreendedor> findByEmail(@Param("email") String email);
 
 }

@@ -1,8 +1,10 @@
 package com.pi.marketplace.service;
 
 import com.pi.marketplace.dto.*;
+import com.pi.marketplace.exceptions.ValidacaoException;
 import com.pi.marketplace.model.Produto;
 import com.pi.marketplace.repository.ProdutoRepository;
+import jakarta.validation.ValidationException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,35 +27,35 @@ public class ProdutoService {
         return converteEntidadeParaDTO(produtos);
     }
 
-    public List<ProdutoDTO> listarProdutosPorCategoria(String nomeCategoria) throws Exception {
+    public List<ProdutoDTO> listarProdutosPorCategoria(String nomeCategoria) {
 
         var categoria = categoriaService.buscarCategoriaPorNome(nomeCategoria);
 
         var listaProdutos = produtoRepository.findAllByCategoria(categoria);
 
         if (listaProdutos.isEmpty()) {
-            throw new Exception("Não existem produtos com categoria: %s" + nomeCategoria);
+            throw new ValidacaoException("Não existem produtos com categoria: %s" + nomeCategoria);
         }
 
         return converteEntidadeParaDTO(listaProdutos.get());
 
     }
 
-    public List<ProdutoDTO> listarProdutosPorEmpreendedor(Integer idEmpreendedor) throws Exception {
+    public List<ProdutoDTO> listarProdutosPorEmpreendedor(Integer idEmpreendedor) {
 
         var empreendedor = empreendedorService.pegarEmpreendedorPeloId(idEmpreendedor);
 
         var listaProdutos = produtoRepository.findAllByEmpreendedor(empreendedor);
 
         if (listaProdutos.isEmpty()) {
-            throw new Exception("O empreendedor ainda não possui produtos cadastrados!");
+            throw new ValidacaoException("O empreendedor ainda não possui produtos cadastrados!");
         }
 
         return converteEntidadeParaDTO(listaProdutos.get());
 
     }
 
-    public void salvarProduto(CreateProdutoDTO createProdutoDTO) throws ClassNotFoundException {
+    public void salvarProduto(CreateProdutoDTO createProdutoDTO) {
 
         var categoria = categoriaService.buscarCategoriaPorId(createProdutoDTO.getIdCategoria());
         var empreendedor = empreendedorService.pegarEmpreendedorPeloId(createProdutoDTO.getIdEmpreendedor());
@@ -69,12 +71,12 @@ public class ProdutoService {
         produtoRepository.save(produto);
     }
 
-    public void deletarProduto(Integer idProduto) throws ClassNotFoundException {
+    public void deletarProduto(Integer idProduto) {
 
         var produto = produtoRepository.findById(idProduto);
 
         if (produto.isEmpty()) {
-            throw new ClassNotFoundException("Usuário não encontrado com o ID: %s" + idProduto);
+            throw new ValidacaoException("Usuário não encontrado com o ID: %s" + idProduto);
         }
 
         produtoRepository.delete(produto.get());

@@ -2,8 +2,11 @@ package com.pi.marketplace.service;
 
 import com.pi.marketplace.dto.CreateEmpreendedorDTO;
 import com.pi.marketplace.dto.EmpreendedorDTO;
+import com.pi.marketplace.dto.LoginDTO;
+import com.pi.marketplace.exceptions.ValidacaoException;
 import com.pi.marketplace.model.Empreendedor;
 import com.pi.marketplace.repository.EmpreendedorRepository;
+import jakarta.validation.ValidationException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -40,12 +43,12 @@ public class EmpreendedorService {
         return empreendedorDTOS;
     }
 
-    public Empreendedor pegarEmpreendedorPeloId(Integer id) throws ClassNotFoundException {
+    public Empreendedor pegarEmpreendedorPeloId(Integer id) {
 
         var empreendedor = empreendedorRepository.findById(id);
 
         if (empreendedor.isEmpty()) {
-            throw new ClassNotFoundException("Empreendedor não encontrado com o ID: %s" + id);
+            throw new ValidacaoException("Empreendedor não encontrado com o ID: %s" + id);
         }
 
         return empreendedor.get();
@@ -66,7 +69,7 @@ public class EmpreendedorService {
         empreendedorRepository.save(empreendedor);
     }
 
-    public void atualizarEmpreendedor(CreateEmpreendedorDTO empreendedorAtualizar, Integer id) throws ClassNotFoundException {
+    public void atualizarEmpreendedor(CreateEmpreendedorDTO empreendedorAtualizar, Integer id) {
 
         var empreendedor = pegarEmpreendedorPeloId(id);
 
@@ -81,15 +84,31 @@ public class EmpreendedorService {
         empreendedorRepository.save(empreendedor);
     }
 
-    public void deletarEmpreendedor(Integer id) throws ClassNotFoundException {
+    public void deletarEmpreendedor(Integer id) {
 
         Optional<Empreendedor> entity = empreendedorRepository.findById(id);
 
         if (entity.isEmpty()) {
-            throw new ClassNotFoundException("Empreendedor não encontrado com o ID: %s" + id);
+            throw new ValidacaoException("Empreendedor não encontrado com o ID: %s" + id);
         }
 
         empreendedorRepository.delete(entity.get());
+    }
+
+    public Empreendedor logarEmpreendedor(LoginDTO loginDTO) {
+        var empreendedor = empreendedorRepository.findByEmail(loginDTO.getEmail()).get();
+
+        if (!empreendedor.getSenha().equalsIgnoreCase(loginDTO.getSenha())) {
+            throw new ValidacaoException("Senha está incorreta!");
+        }
+
+        return empreendedor;
+    }
+
+    public boolean preLoginEmpreendedor(String email) {
+        var usuario = empreendedorRepository.findByEmail(email);
+
+        return usuario.isPresent();
     }
 
 }

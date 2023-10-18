@@ -24,27 +24,27 @@ public class ProdutoController {
     }
 
     @PostMapping("/salvar")
-    public ResponseEntity<Void> criarProduto(@Valid @RequestBody CreateProdutoDTO createProdutoDTO) throws ClassNotFoundException {
+    public ResponseEntity<Void> criarProduto(@Valid @RequestBody CreateProdutoDTO createProdutoDTO) {
 
         produtoService.salvarProduto(createProdutoDTO);
 
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/listar/{categoria}")
-    public ResponseEntity<List<ProdutoDTO>> listarProdutosPorCategoria(@PathVariable("categoria") String categoria) throws Exception {
+    @GetMapping("/listar/categoria/{categoria}")
+    public ResponseEntity<List<ProdutoDTO>> listarProdutosPorCategoria(@PathVariable("categoria") String categoria) {
 
         return ResponseEntity.ok(produtoService.listarProdutosPorCategoria(categoria));
     }
 
-    @GetMapping("/listar/{idEmp}")
-    public ResponseEntity<List<ProdutoDTO>> listarProdutosDoEmpreendedor(@PathVariable("idEmp") Integer idEmpreendedor) throws Exception {
+    @GetMapping("/listar/empreendendor/{idEmp}")
+    public ResponseEntity<List<ProdutoDTO>> listarProdutosDoEmpreendedor(@PathVariable("idEmp") Integer idEmpreendedor) {
 
         return ResponseEntity.ok(produtoService.listarProdutosPorEmpreendedor(idEmpreendedor));
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<Void> deletarProduto(@PathVariable("id") Integer idProduto) throws ClassNotFoundException {
+    public ResponseEntity<Void> deletarProduto(@PathVariable("id") Integer idProduto) {
 
         produtoService.deletarProduto(idProduto);
 
