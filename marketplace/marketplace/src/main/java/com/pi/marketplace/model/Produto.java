@@ -25,12 +25,12 @@ public class Produto {
     @Column
     private String descricao;
 
-    @Column(name = "id_categoria")
+    @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
     @OneToOne
     private Categoria categoria;
 
-    @Column(name = "id_empreendedor")
-    @OneToOne
+    @JoinColumn(name = "id_empreendedor", referencedColumnName = "id_empr")
+    @OneToOne()
     private Empreendedor empreendedor;
 
     @Column(name = "url_imagem")

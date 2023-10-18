@@ -2,8 +2,10 @@ package com.pi.marketplace.service;
 
 import com.pi.marketplace.dto.CategoriaDTO;
 import com.pi.marketplace.dto.CreateCategoriaDTO;
+import com.pi.marketplace.exceptions.ValidacaoException;
 import com.pi.marketplace.model.Categoria;
 import com.pi.marketplace.repository.CategoriaRepository;
+import jakarta.validation.ValidationException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,23 +36,23 @@ public class CategoriaService {
         return categoriasDTO;
     }
 
-    public Categoria buscarCategoriaPorId(Integer idCategoria) throws ClassNotFoundException {
+    public Categoria buscarCategoriaPorId(Integer idCategoria) {
 
         var entity = categoriaRepository.findById(idCategoria);
 
         if (entity.isEmpty()) {
-            throw new ClassNotFoundException("Categoria não encontrada com o ID: %s" + idCategoria);
+            throw new ValidacaoException("Categoria não encontrada com o ID: %s" + idCategoria);
         }
 
         return entity.get();
     }
 
-    public Categoria buscarCategoriaPorNome(String categoria) throws ClassNotFoundException {
+    public Categoria buscarCategoriaPorNome(String categoria) {
 
         var entity = categoriaRepository.findByNome(categoria);
 
         if (entity.isEmpty()) {
-            throw new ClassNotFoundException("Categoria não encontrada com o nome: %s" + categoria);
+            throw new ValidacaoException("Categoria não encontrada com o nome: %s" + categoria);
         }
 
         return entity.get();
@@ -66,7 +68,7 @@ public class CategoriaService {
         categoriaRepository.save(categoria);
     }
 
-    public void deletarCategoria(Integer idCategoria) throws ClassNotFoundException {
+    public void deletarCategoria(Integer idCategoria) {
 
         var entity = buscarCategoriaPorId(idCategoria);
 

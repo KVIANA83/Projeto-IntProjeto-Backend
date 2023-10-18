@@ -1,15 +1,17 @@
 package com.pi.marketplace.service;
 
 import com.pi.marketplace.dto.CreateUsuarioDTO;
+import com.pi.marketplace.dto.LoginDTO;
 import com.pi.marketplace.dto.UsuarioDTO;
+import com.pi.marketplace.exceptions.ValidacaoException;
 import com.pi.marketplace.model.Usuario;
 import com.pi.marketplace.repository.UsuarioRepository;
+import jakarta.validation.ValidationException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -38,12 +40,12 @@ public class UsuarioService {
         return usuarioDTOS;
     }
 
-    public Usuario pegarUsuarioPeloId(Integer id) throws ClassNotFoundException {
+    public Usuario pegarUsuarioPeloId(Integer id) {
 
         var usuario = usuarioRepository.findById(id);
 
         if (usuario.isEmpty()) {
-            throw new ClassNotFoundException("Usuário não encontrado com o ID: %s" + id);
+            throw new ValidacaoException("Usuário não encontrado com o ID: %s" + id);
         }
 
         return usuario.get();
@@ -64,7 +66,7 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
     }
 
-    public void atualizarUsuario(CreateUsuarioDTO usuarioAtualizar, Integer id) throws ClassNotFoundException {
+    public void atualizarUsuario(CreateUsuarioDTO usuarioAtualizar, Integer id) {
 
         var usuario = pegarUsuarioPeloId(id);
 
@@ -79,11 +81,28 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
     }
 
-    public void deletarUsuario(Integer id) throws ClassNotFoundException {
+    public void deletarUsuario(Integer id) {
 
         var entity = pegarUsuarioPeloId(id);
 
         usuarioRepository.delete(entity);
+    }
+
+    public Usuario logarUsuario(LoginDTO loginDTO) {
+
+        var usuario = usuarioRepository.findByEmail(loginDTO.getEmail()).get();
+
+        if (!usuario.getSenha().equalsIgnoreCase(loginDTO.getSenha())) {
+            throw new ValidacaoException("Senha está incorreta!");
+        }
+
+        return usuario;
+    }
+
+    public boolean preLoginUsuario(String email) {
+        var usuario = usuarioRepository.findByEmail(email);
+
+        return usuario.isPresent();
     }
 
 }
