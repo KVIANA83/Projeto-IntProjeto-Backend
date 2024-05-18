@@ -40,11 +40,13 @@
 		</dependency> -->
 
 <!-- Dependência para realizar documentação Swagger -->
+<!--
   <dependency>
     <groupId>io.swagger</groupId>
     <artifactId>swagger-codegen-maven-plugin</artifactId>
     <version>2.4.41</version>
   </dependency>
+-->
 
   <dependency>
    <groupId>com.mysql</groupId>
