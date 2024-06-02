@@ -15,7 +15,7 @@ public class OpenAPIConfig {
     public OpenAPI stringOpenAI() {
         return new OpenAPI().info(new Info()
                                     .title("TEM no Bairro API")
-                                    .description(" ")
+                                    .description("API E-commerce para vínculo de vendedores com compradores")
                                     .version(""));
     }
 
