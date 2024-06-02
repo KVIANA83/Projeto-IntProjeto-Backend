@@ -27,6 +27,24 @@ public class LoginController {
     private UsuarioService usuarioService;
     private EmpreendedorService empreendedorService;
 
+    
+        @Operation(
+        description = "Endpoint para realizar login na plataforma",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Requisição feita com sucesso", 
+                content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Usuario.class))}),
+            @ApiResponse(responseCode = "400", description = "Credenciais não encontradas. Deseja realizar cadastro?", 
+                content = {@Content(mediaType = "application/json", schema = @Schema(implementation = BodyMensagem.class))})
+            },
+            parameters = {
+                @Parameter(name = "login", 
+                            description = "Login do usuário cadastrado", 
+                            example = "A1234"),
+                @Parameter(name = "senha", 
+                            description = "Senha cadastrada pelo usuário", 
+                            example = "SeNHa.123")
+            }
+    )
     @PostMapping
     public ResponseEntity<String> login(@Valid @RequestBody LoginDTO loginDTO) {
 
