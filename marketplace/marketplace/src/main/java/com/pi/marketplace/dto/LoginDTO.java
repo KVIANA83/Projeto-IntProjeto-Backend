@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "DTO para login na plataforma")
 public class LoginDTO {
 
     @Schema(name = "email", 
