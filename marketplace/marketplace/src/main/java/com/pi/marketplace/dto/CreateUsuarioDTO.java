@@ -18,6 +18,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "DTO para criar um novo usuário")
 public class CreateUsuarioDTO {
 
     @Schema(name = "dataNascimento", 
