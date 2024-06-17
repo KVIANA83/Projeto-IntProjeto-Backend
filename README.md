@@ -1,4 +1,3 @@
-
 ## PROJETO INTEGRADOR - MARKETPLACE (TEM NO BAIRRO)💻
 
 ## Escola Tecnica Estadual Advogado José David Gil Rodrigues
@@ -59,3 +58,5 @@ Um backend Java com Spring Boot é uma poderosa combinação para criar aplicati
 13. **Ecossistema**: O ecossistema Spring oferece uma ampla gama de módulos para atender a diferentes necessidades, como Spring Data, Spring Security, Spring Cloud e muito mais.
 
 No geral, um backend Java com Spring Boot oferece uma estrutura sólida e eficiente para desenvolver aplicativos web e serviços escaláveis, seguros e de alto desempenho. É amplamente utilizado na indústria e é uma escolha sólida para desenvolvedores que desejam criar sistemas robustos e confiáveis.
+
+#### Projeto possui documentação Swagger
